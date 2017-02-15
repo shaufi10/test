@@ -21,10 +21,6 @@
 .email{
 	margin-bottom: 50px;
 }
-
-.harga{
-	text-align: right;
-}
 .service,
 .total_amount{
 	display: block;
@@ -33,7 +29,7 @@
 .judul{
 	background: grey;
 	color: black;
-	text-align: left|justify;
+	text-align: left;
 }
 
 .paneli{
@@ -52,4 +48,14 @@ p{
 
 p.data{
 	text-align: center;
+}
+.harga,
+.payment{
+    float: right;
+}
+.reservation,
+.passengerdetails,
+.itenarydetails{
+    display: block;
+    margin-bottom: 40px;
 }
