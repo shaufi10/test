@@ -1,0 +1,55 @@
+.main{
+	margin-right: 20px;
+	margin-left: 0px;
+}
+
+.code{	
+	font-size: 22px;
+	color: red;
+	margin-top: 5px;
+}
+
+.transaction{
+	font-size:10px; 
+	margin-top: 15px;
+}
+
+.number{
+	font-size:10px; 
+}
+
+.email{
+	margin-bottom: 50px;
+}
+
+.harga{
+	text-align: right;
+}
+.service,
+.total_amount{
+	display: block;
+	border-top:2px solid black;
+}
+.judul{
+	background: grey;
+	color: black;
+	text-align: left|justify;
+}
+
+.paneli{
+	padding: 60px;
+}
+
+.text{
+	margin-left: 20px;
+	margin-right:20px;
+}
+
+p{
+	text-align: justify;
+	margin-right: 50px;
+}
+
+p.data{
+	text-align: center;
+}
