@@ -18,6 +18,10 @@
     width: 100%;
     background: black;
 }
+.red{
+    color: red;
+    font-weight: bold;
+}
 .judul{
 	background: grey;
 	color: black;
