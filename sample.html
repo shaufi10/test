@@ -1,0 +1,466 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Flight Invoice</title>
+
+    <style>
+        .invoice-box{
+            max-width:800px;
+            margin:auto;
+            padding:30px;
+            border:1px solid #eee;
+            box-shadow:0 0 10px rgba(0, 0, 0, .15);
+            font-size:16px;
+            line-height:24px;
+            font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color:#555;
+        }
+
+        .invoice-box table{
+            width:100%;
+            line-height:inherit;
+            text-align:left;
+        }
+
+        .invoice-box table td{
+            padding:5px;
+            vertical-align:top;
+        }
+
+        .invoice-box table tr td:nth-child(2){
+            text-align:right;
+        }
+
+        .invoice-box table tr.top table td{
+            padding-bottom:20px;
+            color: #0074ff;
+        }
+
+        .invoice-box table tr.top table td.title{
+            line-height:45px;
+            color:#0074ff;
+        }
+
+        .invoice-box table tr.information table td{
+            padding-bottom:40px;
+        }
+
+        .invoice-box table tr.heading td{
+            background:#eee;
+            border-bottom:1px solid #ddd;
+            font-weight:bold;
+        }
+
+        .invoice-box table tr.details td{
+            padding-bottom:20px;
+        }
+
+        .invoice-box table tr.item td{
+            border-bottom:1px solid #eee;
+        }
+
+        .invoice-box table tr.item.last td{
+            border-bottom:none;
+        }
+
+        .invoice-box table tr.total td:nth-child(2){
+            border-top:2px solid #eee;
+            font-weight:bold;
+        }
+
+        .container {
+            width : 100%;
+            max-width : 1200px;
+        }
+
+        .container-head {
+            border-top-right-radius: 4px;
+            border-top-left-radius: 4px;
+            padding: 5px;
+            margin-bottom: 1%;
+            color: #fff;
+            text-align: center;
+            background-color: #0074ff;
+            width : 100%;
+            max-width : 1200px;
+        }
+
+        .container-footer {
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 4px;
+            padding: 5px;
+            margin-top: 5%;
+            color: #fff;
+            text-align: center;
+            background-color: #0074ff;
+            width : 100%;
+            max-width : 1200px;
+        }
+
+        .row:before,
+        .row:after {
+            content:"";
+            display: table ;
+            clear:both;
+        }
+
+        .col-img{
+            color:#0074ff;
+            text-align: center;
+            min-height: 1px;
+        }
+
+        .col-img-1{
+            color:#0074ff;
+            margin-top: 10%;
+            float: left;
+            text-align: center;
+            min-height: 1px;
+            width: 33%;
+        }
+
+        .col-schedule{
+            color:#0074ff;
+            text-align: center;
+            float: left;
+            min-height: 1px;
+            width: 33%;
+        }
+
+        .col-1{
+            margin-top: 5%;
+            color:#0074ff;
+            text-align: left;
+            float: left;
+            min-height: 1px;
+        }
+
+        .col-1-code{
+            margin-top: 30%;
+            color:#0074ff;
+            text-align: center;
+            min-height: 1px;
+        }
+
+        .col-2{
+            margin-top: 5%;
+            color:#0074ff;
+            text-align: left;
+            float: left;
+            min-height: 1px;
+            width: 33.33%;
+        }
+        .col-3{
+            text-align: center;
+            padding-left: 1%;
+            float: left;
+            min-height: 1px;
+            width: 50%;
+        }
+        .col-4{
+            text-align: center;
+            float: left;
+            min-height: 1px;
+            width: 66.664%;
+        }
+        .col-5{
+            text-align: center;
+            float: left;
+            min-height: 1px;
+            width: 83.33%;
+        }
+        .col-6{
+            text-align: center;
+            float: left;
+            min-height: 1px;
+            width: 100%;
+        }
+
+        .schedule-text {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .panel {
+            border: 1px solid transparent;
+            border-radius: 4px;
+            -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+            box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        }
+
+        .panel-heading {
+            color: #fff;
+            background-color: #0074ff;
+            padding: 5px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+            box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        }
+
+        .panel-body {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .table {
+            border-bottom: 1px solid #ddd;
+        }
+        .table {
+            width: 100%;
+            max-width: 100%;
+            /* margin-bottom: 20px; */
+        }
+        table {
+            background-color: transparent;
+        }
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+        .title-head {
+            border-top-right-radius: 4px;
+            border-top-left-radius: 4px;
+            padding: 5px;
+            margin-bottom: 3%;
+            text-align: center;
+            width : 100%;
+            font-size: 22px;
+            max-width : 1200px;
+        }
+        hr {
+            margin-bottom: 20px;
+            border: 0;
+            border-top: 1px solid #0074ff;
+        }
+
+        table>tbody>tr>td {
+            font-size: 12px;
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+        }
+
+        table > tbody > tr > .thick-line {
+            border-top: 2px solid;
+        }
+
+        table > tbody > tr > .no-line {
+            border-top: none;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-head {
+            height: 100%;
+            font-size: 12px;
+        }
+
+        .text-head-center {
+            width: inherit;
+            float: none;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td{
+                width:100%;
+                display:block;
+                text-align:center;
+            }
+
+            .invoice-box table tr.information table td{
+                width:100%;
+                display:block;
+                text-align:center;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="invoice-box">
+    <div class="title-head">
+        <b><%- flightInvoiceType %> Flight</b>
+    </div>
+    <div class="container-head">
+        Invoice <strong><%- invoice_no %></strong>
+    </div>
+    <div class="container">
+        <table>
+            <tr>
+                <td rowspan="3">
+                    <div class="col-img">
+                        <img src="https://static.grinasia.com/images/invoice/grinasia.png" style="width:100%; max-width:100px;padding: 3%">
+                    </div>
+                </td>
+                <td>
+                    <div class="col-1 text-head">
+                        <strong>Nama Pemesan</strong><br>
+                        <%- passengerFlightData.contactBook.firstName %> <%- passengerFlightData.contactBook.lastName %>
+                    </div>
+                </td>
+                <td>
+                    <div class="col-1 text-head">
+                        <strong>Bandara Asal</strong><br>
+                        <%- userFlightData["fare" + flightInvoiceType].orgCode %> (<%- userFlightData["fare" + flightInvoiceType].orgCity %>)
+                    </div>
+                </td>
+                <td rowspan="3">
+                    <div class="col-1-code">
+                        <strong>Kode Booking</strong><br>
+                        <strong style="font-size: 30px"><%- passengerFlightData["book" + flightInvoiceType].bookingCode %></strong>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-1 text-head">
+                        <strong>Maskapai</strong><br>
+                        <%- userFlightData["fare" + flightInvoiceType].airlineName %>
+                    </div>
+                </td>
+                <td>
+                    <div class="col-1 text-head">
+                        <strong>Bandara Tujuan</strong><br>
+                        <%- userFlightData["fare" + flightInvoiceType].destCode %> (<%- userFlightData["fare" + flightInvoiceType].destCity %>)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-1 text-head">
+                        <strong>Nomor Penerbangan</strong><br>
+                        <% if (userFlightData["fare" + flightInvoiceType].hasOwnProperty("airlineFlightNo")) { %>
+                            <%- userFlightData["fare" + flightInvoiceType].airlineFlightNo %>
+                        <% } else { %>
+                            N/A
+                        <% } %>
+                    </div>
+                </td>
+                <td>
+                    <div class="col-1 text-head">
+                        <strong>Nomor Transaksi</strong><br>
+                        <%- transaction_id %>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row" style="margin-bottom: 30px">
+            <div class="col-schedule">
+                <div class="schedule-text">
+                    <strong><%- userFlightData["fare" + flightInvoiceType].orgCode %></strong>
+                </div><br>
+                <%- userFlightData["fare" + flightInvoiceType].orgCity %><br>
+                <%- userFlightData.fareFlights[ flightInvoiceType.toLowerCase() ].tripDate %><br>
+                <div class="schedule-text">
+                    <strong><%- userFlightData["fare" + flightInvoiceType].departTime %></strong>
+                </div><br>
+                <%- userFlightData["fare" + flightInvoiceType].orgName %>
+            </div>
+            <div class="col-img-1">
+                <img src="https://static.grinasia.com/images/invoice/plane.png" style="width:100%;height: 50%;max-width:100px">
+            </div>
+            <div class="col-schedule">
+                <div class="schedule-text">
+                    <strong><%- userFlightData["fare" + flightInvoiceType].destCode %></strong>
+                </div><br>
+                <%- userFlightData["fare" + flightInvoiceType].destCity %><br>
+                <%- userFlightData.fareFlights[ flightInvoiceType.toLowerCase() ].tripDate %><br>
+                <div class="schedule-text">
+                    <strong><%- userFlightData["fare" + flightInvoiceType].arriveTime %></strong>
+                </div><br>
+                <%- userFlightData["fare" + flightInvoiceType].destName %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>Data Penumpang</strong>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-condensed">
+                            <thead>
+                            <tr style="color: #0074ff;">
+                                <td><strong>Nama</strong></td>
+                                <td class="text-center"><strong>Kategori</strong></td>
+                                <!--<td class="text-center"><strong>Nomor Tiket</strong></td>-->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tbody>
+                            <% if (passengerFlightData.passengerListPax.ListTypeAdult.adult[0] instanceof Array) { %>
+                            <% for (var iteratorAdult = 0; iteratorAdult < passengerFlightData.passengerListPax.ListTypeAdult.adult[0].length; iteratorAdult++) { %>
+                            <tr style="color: #0074ff;">
+                                <td><%= passengerFlightData.passengerListPax.ListTypeAdult.adult[0][iteratorAdult].title %>. <%= passengerFlightData.passengerListPax.ListTypeAdult.adult[0][iteratorAdult].firstName %> <%= passengerFlightData.passengerListPax.ListTypeAdult.adult[0][iteratorAdult].lastName %></td>
+                                <td class="text-center">Dewasa</td>
+                                <!--<td class="text-center">-</td>-->
+                            </tr>
+                            <% } %>
+                            <% } else { %>
+                            <tr style="color: #0074ff;">
+                                <td><%= passengerFlightData.passengerListPax.ListTypeAdult.adult[0].title %>. <%= passengerFlightData.passengerListPax.ListTypeAdult.adult[0].firstName %> <%= passengerFlightData.passengerListPax.ListTypeAdult.adult[0].lastName %></td>
+                                <td class="text-center">Dewasa</td>
+                                <!--<td class="text-center">-</td>-->
+                            </tr>
+                            <% } %>
+                            <% if (passengerFlightData.passengerListPax.ListTypeChild != "") { %>
+                            <% if (passengerFlightData.passengerListPax.ListTypeChild.child[0] instanceof Array) { %>
+                            <% for (var iteratorChild = 0; iteratorChild < passengerFlightData.passengerListPax.ListTypeChild.child[0].length; iteratorChild++) { %>
+                            <tr style="color: #0074ff;">
+                                <td><%= passengerFlightData.passengerListPax.ListTypeChild.child[0][iteratorChild].title %>. <%= passengerFlightData.passengerListPax.ListTypeChild.child[0][iteratorChild].firstName %> <%= passengerFlightData.passengerListPax.ListTypeChild.child[0][iteratorChild].lastName %></td>
+                                <td class="text-center">Anak-Anak</td>
+                                <!--<td class="text-center">-</td>-->
+                            </tr>
+                            <% } %>
+                            <% } else { %>
+                            <tr style="color: #0074ff;">
+                                <td><%= passengerFlightData.passengerListPax.ListTypeChild.child[0].title %>. <%= passengerFlightData.passengerListPax.ListTypeChild.child[0].firstName %> <%= passengerFlightData.passengerListPax.ListTypeChild.child[0].lastName %></td>
+                                <td class="text-center">Anak-Anak</td>
+                                <!--<td class="text-center">-</td>-->
+                            </tr>
+                            <% } %>
+                            <% } %>
+                            <% if (passengerFlightData.passengerListPax.ListTypeInfant != "") { %>
+                            <% if (passengerFlightData.passengerListPax.ListTypeInfant.infant[0] instanceof Array) { %>
+                            <% for (var iteratorInfant = 0; iteratorInfant < passengerFlightData.passengerListPax.ListTypeInfant.infant[0].length; iteratorInfant++) { %>
+                            <tr style="color: #0074ff;">
+                                <td><%= passengerFlightData.passengerListPax.ListTypeInfant.infant[0][iteratorInfant].title %>. <%= passengerFlightData.passengerListPax.ListTypeInfant.infant[0][iteratorInfant].firstName %> <%= passengerFlightData.passengerListPax.ListTypeInfant.infant[0][iteratorInfant].lastName %></td>
+                                <td class="text-center">Bayi/Balita</td>
+                                <!--<td class="text-center">-</td>-->
+                            </tr>
+                            <% } %>
+                            <% } else { %>
+                            <tr style="color: #0074ff;">
+                                <td><%= passengerFlightData.passengerListPax.ListTypeInfant.infant[0].title %>. <%= passengerFlightData.passengerListPax.ListTypeInfant.infant[0].firstName %> <%= passengerFlightData.passengerListPax.ListTypeInfant.infant[0].lastName %></td>
+                                <td class="text-center">Bayi/Balita</td>
+                                <!--<td class="text-center">-</td>-->
+                            </tr>
+                            <% } %>
+                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-footer">
+        Copyright © 2017 Grinasia.
+    </div>
+</div>
+</body>
+</html>
